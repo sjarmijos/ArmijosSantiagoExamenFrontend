@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-      <h1>Carga de estudiantes</h1>
+      <h1>Formulario de mascotas</h1>
       <Form />
     </>
   )
