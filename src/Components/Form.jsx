@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import Card from './Card'
 
-const Form = () => {
+const Form = ({setSelected}) => {
     const [customer, setCustomer] = useState({
         name: '',
         pet: ''
     })
 
     const [flag, setFlag] = useState(true)
-    const [selected, setSelected] = useState(null)
+    const [submitted, setSubmitted] = useState(false)
 
     const handleName = (e) => {
         setCustomer({
@@ -28,11 +28,11 @@ const Form = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        setSubmitted(true)
         if (regexName.test(customer.name) && regexPet.test(customer.pet)) {
-            setSelected(customer)
-            setFlag(false)
-        }else{
             setFlag(true)
+        }else{
+            setFlag(false)
         }
     }
 
@@ -46,7 +46,11 @@ const Form = () => {
                 <button>Enviar</button>
             </form>
             
-            {flag ? <p>Por favor chequea que la información sea correcta</p> : <Card name={customer.name} pet={customer.pet} />}
+            {submitted && (
+                flag ? 
+                <Card name={customer.name} pet={customer.pet} /> : 
+                <p>Por favor chequea que la información sea correcta</p>
+            )}
         </div>
     )
 }
